@@ -1,0 +1,339 @@
+<style>
+.dash {
+  --dash-blue: #252083;
+  --dash-blue-2: #185fa5;
+  --dash-red: #b43724;
+  --dash-teal: #0f766e;
+  --dash-green: #5f8f1d;
+  --dash-ink: #172033;
+  --dash-muted: #667085;
+  --dash-line: #dde5f1;
+  --dash-card: #ffffff;
+  color: var(--dash-ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef4fb 42%, #f8fafc 100%);
+  border-radius: 8px;
+}
+.report-header { background: var(--dash-card); border: 1px solid var(--dash-line); border-radius: 8px; overflow: hidden; box-shadow: 0 14px 32px rgba(23,32,51,0.08); }
+.brand-logo { display: block; width: 100%; max-height: 150px; object-fit: contain; background: #fff; border-bottom: 1px solid var(--dash-line); }
+.hero-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: end; padding: 20px 22px; }
+.eyebrow { color: var(--dash-red); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; margin: 0 0 6px; text-transform: uppercase; }
+.hero-title { color: var(--dash-blue); font-size: clamp(24px, 3.4vw, 42px); font-weight: 800; letter-spacing: 0; line-height: 1.05; margin: 0; }
+.hero-copy { color: var(--dash-muted); font-size: 14px; line-height: 1.6; margin: 10px 0 0; max-width: 720px; }
+.report-meta { display: grid; gap: 8px; min-width: 210px; color: var(--dash-muted); font-size: 12px; }
+.meta-pill { border: 1px solid var(--dash-line); border-radius: 8px; padding: 10px 12px; background: #fbfdff; }
+.meta-pill strong { display: block; color: var(--dash-ink); font-size: 16px; margin-top: 2px; }
+.summary-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--dash-line); border-top: 1px solid var(--dash-line); }
+.summary-item { background: #fbfdff; padding: 14px 18px; }
+.summary-label { color: var(--dash-muted); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; margin: 0 0 4px; text-transform: uppercase; }
+.summary-value { color: var(--dash-ink); font-size: 22px; font-weight: 800; margin: 0; }
+.site-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 18px 0; padding: 6px; background: #e8eef7; border: 1px solid var(--dash-line); border-radius: 8px; }
+.tab { min-height: 42px; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; border: 1px solid transparent; background: transparent; color: #475467; transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease; }
+.tab:hover { color: var(--dash-blue); background: rgba(255,255,255,0.65); }
+.tab.active { background: var(--dash-blue); border-color: var(--dash-blue); color: #fff; box-shadow: 0 8px 18px rgba(37,32,131,0.18); }
+.section-title { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 800; color: var(--dash-blue); text-transform: uppercase; letter-spacing: 0.08em; margin: 24px 0 12px; }
+.section-title::after { content: ""; height: 1px; flex: 1; background: var(--dash-line); }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.kpi { position: relative; overflow: hidden; background: var(--dash-card); border: 1px solid var(--dash-line); border-radius: 8px; padding: 15px 16px; box-shadow: 0 8px 20px rgba(23,32,51,0.05); }
+.kpi::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: linear-gradient(180deg, var(--dash-blue-2), var(--dash-green)); }
+.kpi-label { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; color: var(--dash-muted); margin: 0 0 7px; text-transform: uppercase; }
+.kpi-val { font-size: clamp(24px, 3vw, 32px); font-weight: 850; color: var(--dash-ink); margin: 0; line-height: 1.05; }
+.kpi-sub { font-size: 12px; color: var(--dash-teal); margin: 6px 0 0; font-weight: 700; }
+.chart-card { background: var(--dash-card); border: 1px solid var(--dash-line); border-radius: 8px; padding: 18px 20px 20px; margin-bottom: 14px; box-shadow: 0 10px 24px rgba(23,32,51,0.06); }
+.chart-title { font-size: 15px; font-weight: 800; color: var(--dash-ink); margin: 0 0 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-bottom: 12px; font-size: 12px; color: var(--dash-muted); }
+.legend span { display: flex; align-items: center; gap: 6px; font-weight: 700; }
+.legend-dot { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.compare-grid > div { background: rgba(255,255,255,0.7); border: 1px solid var(--dash-line); border-radius: 8px; padding: 14px; }
+.site-badge { display: inline-flex; align-items: center; min-height: 26px; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
+.badge-main { background: #e6f1fb; color: #0c447c; }
+.badge-adm { background: #edf6df; color: #27500a; }
+.chart-card canvas { max-width: 100%; }
+@media (max-width: 780px) {
+  .dash { padding: 10px; }
+  .hero-row { grid-template-columns: 1fr; padding: 16px; }
+  .report-meta { min-width: 0; grid-template-columns: 1fr 1fr; }
+  .summary-strip { grid-template-columns: 1fr 1fr; }
+  .site-tabs { grid-template-columns: 1fr; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 500px) {
+  .brand-logo { max-height: 110px; }
+  .report-meta, .summary-strip { grid-template-columns: 1fr; }
+  .chart-card { padding: 15px 14px; }
+}
+</style>
+
+<div class="dash">
+  <header class="report-header">
+    <img class="brand-logo" src="logo.webp" alt="V.S.B. College of Engineering Technical Campus">
+    <div class="hero-row">
+      <div>
+        <p class="eyebrow">Google Analytics 4 Report</p>
+        <h1 class="hero-title">Website Performance Dashboard</h1>
+        <p class="hero-copy">April 2026 traffic, user activity, acquisition channels, and engagement comparison for the main college website and admission landing page.</p>
+      </div>
+      <div class="report-meta" aria-label="Report metadata">
+        <div class="meta-pill">Period<strong>April 2026</strong></div>
+        <div class="meta-pill">Properties<strong>2 Sites</strong></div>
+      </div>
+    </div>
+    <div class="summary-strip" aria-label="Combined report highlights">
+      <div class="summary-item"><p class="summary-label">Combined sessions</p><p class="summary-value">52,218</p></div>
+      <div class="summary-item"><p class="summary-label">Combined users</p><p class="summary-value">44,157</p></div>
+      <div class="summary-item"><p class="summary-label">Combined pageviews</p><p class="summary-value">54,066</p></div>
+      <div class="summary-item"><p class="summary-label">Top channel</p><p class="summary-value">Paid Social</p></div>
+    </div>
+  </header>
+
+  <div class="site-tabs">
+    <button class="tab active" onclick="showSite('main')">vsbcetc.edu.in</button>
+    <button class="tab" onclick="showSite('adm')">Admission Landing Page</button>
+    <button class="tab" onclick="showSite('compare')">Compare both</button>
+  </div>
+
+  <div id="view-main">
+    <p class="section-title">Traffic overview - April 2026</p>
+    <div class="kpi-grid">
+      <div class="kpi"><p class="kpi-label">Total sessions</p><p class="kpi-val">35,662</p></div>
+      <div class="kpi"><p class="kpi-label">Active users</p><p class="kpi-val">30,219</p></div>
+      <div class="kpi"><p class="kpi-label">New users</p><p class="kpi-val">28,689</p><p class="kpi-sub">80.5% of users</p></div>
+      <div class="kpi"><p class="kpi-label">Pageviews</p><p class="kpi-val">36,310</p></div>
+      <div class="kpi"><p class="kpi-label">Avg bounce rate</p><p class="kpi-val">74.1%</p></div>
+      <div class="kpi"><p class="kpi-label">Avg session dur.</p><p class="kpi-val">66s</p></div>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Daily sessions - vsbcetc.edu.in</p>
+      <div style="position:relative;height:200px;"><canvas id="c1" role="img" aria-label="Daily sessions for vsbcetc.edu.in April 2026">Sessions ranged from ~664 to ~3460 per day.</canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">New vs returning users</p>
+      <div class="legend">
+        <span><span class="legend-dot" style="background:#378ADD;"></span>New (29,026 sessions)</span>
+        <span><span class="legend-dot" style="background:#639922;"></span>Returning (3,450 sessions)</span>
+      </div>
+      <div style="position:relative;height:180px;"><canvas id="c2" role="img" aria-label="New vs returning users for vsbcetc.edu.in">New: 29026 sessions, returning: 3450.</canvas></div>
+    </div>
+
+    <p class="section-title">Traffic acquisition</p>
+    <div class="chart-card">
+      <p class="chart-title">Sessions by channel</p>
+      <div style="position:relative;height:260px;"><canvas id="c3" role="img" aria-label="Sessions by channel for vsbcetc.edu.in">Paid Social 13810, Organic Search 9968, Unassigned 6455, Paid Search 2312, Direct 1643.</canvas></div>
+    </div>
+  </div>
+
+  <div id="view-adm" style="display:none;">
+    <p class="section-title">Traffic overview - April 2026</p>
+    <div class="kpi-grid">
+      <div class="kpi"><p class="kpi-label">Total sessions</p><p class="kpi-val">16,556</p></div>
+      <div class="kpi"><p class="kpi-label">Active users</p><p class="kpi-val">13,938</p></div>
+      <div class="kpi"><p class="kpi-label">New users</p><p class="kpi-val">14,472</p><p class="kpi-sub">96.4% of users</p></div>
+      <div class="kpi"><p class="kpi-label">Pageviews</p><p class="kpi-val">17,756</p></div>
+      <div class="kpi"><p class="kpi-label">Avg bounce rate</p><p class="kpi-val">86.3%</p></div>
+      <div class="kpi"><p class="kpi-label">Avg session dur.</p><p class="kpi-val">27s</p></div>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Daily sessions - Admission Landing Page</p>
+      <div style="position:relative;height:200px;"><canvas id="c4" role="img" aria-label="Daily sessions for admission landing page April 2026">Sessions ranged from 568 to 1706 per day.</canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">New vs returning users</p>
+      <div class="legend">
+        <span><span class="legend-dot" style="background:#378ADD;"></span>New (14,430 sessions)</span>
+        <span><span class="legend-dot" style="background:#639922;"></span>Returning (541 sessions)</span>
+      </div>
+      <div style="position:relative;height:180px;"><canvas id="c5" role="img" aria-label="New vs returning for admission page">New: 14430, returning: 541.</canvas></div>
+    </div>
+
+    <p class="section-title">Traffic acquisition</p>
+    <div class="chart-card">
+      <p class="chart-title">Sessions by channel</p>
+      <div style="position:relative;height:260px;"><canvas id="c6" role="img" aria-label="Sessions by channel for admission landing page">Paid Social 8908, Paid Search 2439, Paid Video 1582, Direct 1265.</canvas></div>
+    </div>
+  </div>
+
+  <div id="view-compare" style="display:none;">
+    <p class="section-title">Side-by-side comparison</p>
+    <div class="compare-grid">
+      <div>
+        <span class="site-badge badge-main">vsbcetc.edu.in</span>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Sessions</p><p class="kpi-val">35,662</p></div>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Active users</p><p class="kpi-val">30,219</p></div>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Bounce rate</p><p class="kpi-val">74.1%</p></div>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Avg session dur.</p><p class="kpi-val">66s</p></div>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Engagement rate</p><p class="kpi-val">27.9%</p></div>
+        <div class="kpi"><p class="kpi-label">New user %</p><p class="kpi-val">80.5%</p></div>
+      </div>
+      <div>
+        <span class="site-badge badge-adm">Admission page</span>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Sessions</p><p class="kpi-val">16,556</p></div>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Active users</p><p class="kpi-val">13,938</p></div>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Bounce rate</p><p class="kpi-val">86.3%</p></div>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Avg session dur.</p><p class="kpi-val">27s</p></div>
+        <div class="kpi" style="margin-bottom:8px;"><p class="kpi-label">Engagement rate</p><p class="kpi-val">14.2%</p></div>
+        <div class="kpi"><p class="kpi-label">New user %</p><p class="kpi-val">96.4%</p></div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-top:12px;">
+      <p class="chart-title">Sessions comparison by day</p>
+      <div class="legend">
+        <span><span class="legend-dot" style="background:#378ADD;"></span>vsbcetc.edu.in</span>
+        <span><span class="legend-dot" style="background:#639922;"></span>Admission page</span>
+      </div>
+      <div style="position:relative;height:220px;"><canvas id="c7" role="img" aria-label="Daily session comparison between two sites April 2026">vsbcetc.edu.in had higher overall sessions with a spike on Apr 4.</canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Channel mix comparison</p>
+      <div class="legend">
+        <span><span class="legend-dot" style="background:#378ADD;"></span>vsbcetc.edu.in</span>
+        <span><span class="legend-dot" style="background:#639922;"></span>Admission page</span>
+      </div>
+      <div style="position:relative;height:300px;"><canvas id="c8" role="img" aria-label="Channel mix comparison between two sites">Both rely heavily on paid social. Edu.in has more organic search.</canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Engagement: returning vs new (avg session duration)</p>
+      <div style="position:relative;height:180px;"><canvas id="c9" role="img" aria-label="Returning vs new user session duration comparison">Returning users stay much longer on both sites.</canvas></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const BLUE = '#378ADD';
+const GREEN = '#639922';
+const AMBER = '#BA7517';
+const CORAL = '#D85A30';
+const PURPLE = '#7F77DD';
+const GRAY = '#888780';
+const TEAL = '#1D9E75';
+
+const mainDates = ['Apr 1','Apr 2','Apr 3','Apr 4','Apr 5','Apr 6','Apr 7','Apr 8','Apr 9','Apr 10','Apr 11','Apr 12','Apr 13','Apr 14','Apr 15','Apr 16','Apr 17','Apr 18','Apr 19','Apr 20','Apr 21','Apr 22','Apr 23','Apr 24','Apr 25','Apr 26','Apr 27','Apr 28','Apr 29','Apr 30'];
+const mainSessions = [1013,1037,891,3460,1370,1401,1260,1198,1129,1076,1000,1066,1009,913,904,2259,1217,1017,976,664,956,944,999,1163,1087,1107,804,1752,960,791];
+const admDates = ['Apr 18','Apr 19','Apr 20','Apr 21','Apr 22','Apr 23','Apr 24','Apr 25','Apr 26','Apr 27','Apr 28','Apr 29','Apr 30'];
+const admSessions = [568,970,982,1428,1296,1706,1413,1340,1608,1339,1547,1289,1184];
+
+const defOpts = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { display: false } },
+  scales: { x: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 10 }, maxRotation: 45, autoSkip: true, maxTicksLimit: 10 } }, y: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 10 } } } }
+};
+
+function makeArea(id, labels, data, color) {
+  new Chart(document.getElementById(id), {
+    type: 'line',
+    data: { labels, datasets: [{ data, borderColor: color, backgroundColor: color + '22', fill: true, tension: 0.35, pointRadius: 2, borderWidth: 1.5 }] },
+    options: { ...defOpts }
+  });
+}
+
+function makeDonut(id, labels, data, colors) {
+  new Chart(document.getElementById(id), {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2 }] },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { display: false } } }
+  });
+}
+
+function makeBar(id, labels, data, color, horizontal) {
+  new Chart(document.getElementById(id), {
+    type: horizontal ? 'bar' : 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: color, borderRadius: 4 }] },
+    options: {
+      indexAxis: horizontal ? 'y' : 'x',
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 10 } } },
+        y: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 10 } } }
+      }
+    }
+  });
+}
+
+makeArea('c1', mainDates, mainSessions, BLUE);
+makeDonut('c2', ['New','Returning'], [29026, 3450], [BLUE, GREEN]);
+
+const mainChannels = ['Paid Social','Organic Search','Unassigned','Paid Search','Direct','Paid Other','Organic Social','Display','Paid Video','Organic Video'];
+const mainChVals = [13810, 9968, 6455, 2312, 1643, 449, 286, 211, 203, 187];
+makeBar('c3', mainChannels, mainChVals, [BLUE,GREEN,GRAY,AMBER,TEAL,CORAL,PURPLE,'#B4B2A9','#D4537E','#0F6E56'], true);
+
+makeArea('c4', admDates, admSessions, GREEN);
+makeDonut('c5', ['New','Returning'], [14430, 541], [BLUE, GREEN]);
+
+const admChannels = ['Paid Social','Paid Search','Paid Video','Direct','Unassigned','Display','Organic Search','Organic Social'];
+const admChVals = [8908, 2439, 1582, 1265, 1001, 835, 493, 30];
+makeBar('c6', admChannels, admChVals, [BLUE,AMBER,CORAL,TEAL,GRAY,PURPLE,GREEN,'#D4537E'], true);
+
+const compareDates = ['Apr 18','Apr 19','Apr 20','Apr 21','Apr 22','Apr 23','Apr 24','Apr 25','Apr 26','Apr 27','Apr 28','Apr 29','Apr 30'];
+const mainForComp = [1017, 976, 664, 956, 944, 999, 1163, 1087, 1107, 804, 1752, 960, 791];
+new Chart(document.getElementById('c7'), {
+  type: 'line',
+  data: {
+    labels: compareDates,
+    datasets: [
+      { label: 'vsbcetc.edu.in', data: mainForComp, borderColor: BLUE, backgroundColor: BLUE+'22', fill: true, tension: 0.35, pointRadius: 2, borderWidth: 1.5 },
+      { label: 'Admission page', data: admSessions, borderColor: GREEN, backgroundColor: GREEN+'22', fill: true, tension: 0.35, pointRadius: 2, borderWidth: 1.5, borderDash: [4,3] }
+    ]
+  },
+  options: { ...defOpts }
+});
+
+const chLabels = ['Paid Social','Organic Search','Unassigned','Paid Search','Direct','Paid Video','Display'];
+new Chart(document.getElementById('c8'), {
+  type: 'bar',
+  data: {
+    labels: chLabels,
+    datasets: [
+      { label: 'vsbcetc.edu.in', data: [13810,9968,6455,2312,1643,203,211], backgroundColor: BLUE + 'CC', borderRadius: 3 },
+      { label: 'Admission page', data: [8908,493,1001,2439,1265,1582,835], backgroundColor: GREEN + 'CC', borderRadius: 3 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 10 }, maxRotation: 35 } },
+      y: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 10 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('c9'), {
+  type: 'bar',
+  data: {
+    labels: ['New users','Returning users'],
+    datasets: [
+      { label: 'vsbcetc.edu.in', data: [50, 220], backgroundColor: BLUE + 'CC', borderRadius: 4 },
+      { label: 'Admission page', data: [24, 74], backgroundColor: GREEN + 'CC', borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 11 } } },
+      y: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 10 }, callback: v => v + 's' } }
+    }
+  }
+});
+
+function showSite(site) {
+  document.getElementById('view-main').style.display = site === 'main' ? '' : 'none';
+  document.getElementById('view-adm').style.display = site === 'adm' ? '' : 'none';
+  document.getElementById('view-compare').style.display = site === 'compare' ? '' : 'none';
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', ['main','adm','compare'][i] === site);
+  });
+}
+</script>
